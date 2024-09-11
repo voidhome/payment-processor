@@ -1,9 +1,8 @@
 package paymentprocessor.service
 
-import paymentprocessor.table.Payment
-import reactor.core.publisher.Mono
+import paymentprocessor.domain.Payment
 
 interface PaymentValidationService {
 
-    fun validatePayment(payment: Payment): Mono<Payment>
+    suspend fun validatePayment(payment: Payment): Boolean
 }

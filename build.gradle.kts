@@ -16,31 +16,20 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
-kotlin {
-    jvmToolchain(21)
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-}
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    val mapstructVersion = "1.5.5.Final"
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.kafka:spring-kafka")
-    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.postgresql:r2dbc-postgresql")
-    implementation("org.liquibase:liquibase-core")
-    implementation("org.mapstruct:mapstruct:${mapstructVersion}")
-    annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
-    kapt("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.8.1")
+
     implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -49,6 +38,7 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "21"
     }
 }
